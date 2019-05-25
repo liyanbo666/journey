@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lybyb.journey.order.dao.OrderMapper">
+    <resultMap id="orderMap" type="com.lybyb.journey.order.model.Order">
+        <id property="id" column="id"/>
+        <!-- 定义普通属性 -->
+        <result property="name" column="name"/>
+        <result property="phone" column="phone"/>
+        <result property="existWXId" column="exist_wx_id"/>
+        <result property="consultTime" column="consult_time"/>
+        <result property="followUpPlan" column="follow_up_plan"/>
+        <result property="followUpProcess" column="follow_up_process"/>
+        <result property="origin" column="origin"/>
+        <result property="remark" column="remark"/>
+        <result property="customerWX" column="wx_num"/>
+        <result property="nextConsultTime" column="next_consult_time"/>
+        <!--<result property="course" column="course"/>-->
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="createUser" column="createUser"/>
+        <result property="modifyUser" column="modify_user"/>
+    </resultMap>
+    <select id="getOrderList" parameterType="com.lybyb.journey.order.model.Order" resultType="com.lybyb.journey.order.model.Order">
+        SELECT apply_order.id as id,
+        apply_order.customer_id as customerId,
+        apply_order.consult_time AS consultTime,
+        apply_order.next_consult_time as nextConsultTime,
+        apply_order.remark as remark,
+        apply_order.create_time as createTime,apply_order.modify_time as modifyTime,
+        customer.name AS name,customer.phone as phone,course.name AS course,
+        customer.wx_num AS customerWX,
+        t_sys_dict.label as existWX FROM apply_order
+        LEFT JOIN course ON apply_order.course_id=course.id
+        LEFT JOIN t_sys_dict ON t_sys_dict.id=apply_order.exist_wx_id
+        LEFT JOIN customer ON apply_order.customer_id=customer.id
+        WHERE 1=1 AND  apply_order.status='0'
+        <if test="name !='' and name != null">
+            AND customer.name=#{name}
+        </if>
+        <if test="phone !='' and phone != null">
+            AND customer.phone=#{phone}
+        </if>
+        <if test=" existWXId != null">
+            AND exist_wx_id=#{existWXId}
+        </if>
+        <if test="customerWX !='' and customerWX != null">
+            AND customer.wx_num=#{customerWX}
+        </if>
+        <if test="courseId != null">
+            AND course_id=#{courseId}
+        </if>
+        <if test="nextConsultBeginTime!=null">
+           AND next_consult_time=#{nextConsultBeginTime}
+        </if>
+        <if test="nextConsultEndTime!=null">
+            AND next_consult_time=#{nextConsultEndTime}
+        </if>
+        <if test="consultTime != null">
+            AND consult_time=#{consultTime}
+        </if>
+        <if test="origin !='' and origin != null">
+            AND customer.origin=#{origin}
+        </if>
+        ORDER BY next_consult_time ASC
+    </select>
+
+    <select id="getOrderListById" parameterType="java.lang.Long" resultType="com.lybyb.journey.order.model.Order">
+        SELECT apply_order.id as id,
+        apply_order.course_id as courseId,
+        apply_order.exist_wx_id as existWXId,
+        apply_order.consult_time AS consultTime,
+        apply_order.next_consult_time as nextConsultTime,
+        apply_order.remark as remark,
+        apply_order.create_time as createTime,apply_order.modify_time as modifyTime,
+        customer.name AS name,customer.phone as phone,course.name AS course,
+        customer.wx_num as customerWX,
+        t_sys_dict.label as existWX FROM apply_order
+        LEFT JOIN course ON apply_order.course_id=course.id
+        LEFT JOIN t_sys_dict ON t_sys_dict.id=apply_order.exist_wx_id
+        LEFT JOIN customer ON apply_order.customer_id=customer.id
+        WHERE apply_order.id=#{id} AND  apply_order.status='0'
+    </select>
+
+    <insert id="saveOrder" parameterType="com.lybyb.journey.order.model.Order">
+INSERT INTO `journey`.`apply_order` (
+`exist_wx_id`,
+`consult_time`,
+`follow_up_plan`,
+`follow_up_process`,
+`remark`,
+`next_consult_time`,
+`course_id`,
+customer_id,
+`create_time`,
+`modify_time`,
+`create_user`,
+`modify_user`
+)
+VALUES
+	(
+	#{existWXId},
+	#{consultTime},
+	#{followUpPlan},
+	#{followUpProcess},
+	#{remark},
+	#{nextConsultTime},
+	#{courseId},
+	#{customerId},
+	now(),
+	now(),
+	NULL,
+    NULL
+	);
+    </insert>
+    <update id="updateOrder" parameterType="com.lybyb.journey.order.model.Order">
+        UPDATE `journey`.`apply_order`
+            SET
+            `exist_wx_id` = #{existWXId},
+            `consult_time` = #{consultTime},
+            `follow_up_plan` = #{followUpPlan},
+            `follow_up_process` = #{followUpProcess},
+            `remark` = #{remark},
+            `next_consult_time` = #{nextConsultTime},
+            `course_id` =#{courseId},
+            `modify_time` = now(),
+            `create_user` = NULL,
+            `modify_user` = NULL
+            WHERE
+                `id` = #{id};
+    </update>
+
+</mapper>

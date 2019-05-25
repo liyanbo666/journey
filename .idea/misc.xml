@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/../gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/../cms/pom.xml" />
+        <option value="$PROJECT_DIR$/../cms_zc/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-api-entity/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-common-service/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-common/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-core/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-custmerge/cms-custmerge-api/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-custmerge/cms-custmerge-parent/cms-custmerge-runner/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-custmerge/cms-custmerge-parent/cms-custmerge-service/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-custmerge/cms-custmerge-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-custmerge/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-dispense/cms-dispense-api/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-dispense/cms-dispense-parent/cms-dispense-runner/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-dispense/cms-dispense-parent/cms-dispense-service/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-dispense/cms-dispense-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-dispense/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-division/cms-division-api/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-division/cms-division-parent/cms-division-runner/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-division/cms-division-parent/cms-division-service/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-division/cms-division-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-division/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-eureka-server/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-intf/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-mapper/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-outdata/cms-outdata-runner/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-outdata/cms-outdata-service/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-outdata/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-recycle/cms-recycle-api/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-recycle/cms-recycle-parent/cms-recycle-runner/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-recycle/cms-recycle-parent/cms-recycle-service/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-recycle/cms-recycle-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-recycle/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-task/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/cms-zuul/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom/pom.xml" />
+        <option value="$PROJECT_DIR$/../custom_web/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

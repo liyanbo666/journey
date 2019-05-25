@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lybyb.journey.customer.dao.CustomerMapper">
+<insert id="saveCustomer" useGeneratedKeys="true" keyProperty="id" parameterType="com.lybyb.journey.customer.model.Customer">
+    INSERT INTO customer(
+	`name`,
+	`phone`,
+	`id_card`,
+	`wx_num`,
+	address,
+	origin,
+	create_time,
+	modify_time
+)
+VALUES
+	(
+		#{name},
+		#{phone},
+		#{idCard},
+		#{customerWXNum},
+		#{address},
+		#{origin},
+		NOW(),
+		NOW()
+	);
+</insert>
+	<select id="getCustomerList" parameterType="com.lybyb.journey.customer.model.Customer" resultType="com.lybyb.journey.customer.model.Customer">
+		SELECT customer.id as id,name as name,phone as phone,id_card as idCard,address as address,wx_num as customerWXNum,
+		origin as origin,t_sys_dict.label AS originValue from customer
+		LEFT JOIN t_sys_dict ON customer.origin=t_sys_dict.id
+		WHERE 1=1
+		<if test="name != null and name!=''">
+			AND name=#{name}
+		</if>
+		<if test="phone!=null and phone!=''">
+			and phone=#{phone}
+		</if>
+		<if test="customerWXNum!=null and customerWXNum!=''">
+			and wx_num=#{customerWXNum}
+		</if>
+		<if test="idCard!=null and idCard!=''">
+			and id_card=#{idCard}
+		</if>
+		<if test="origin!=null and origin!=''">
+			and origin=#{origin}
+		</if>
+	</select>
+	<select id="getCustomerById" parameterType="java.lang.Long" resultType="com.lybyb.journey.customer.model.Customer">
+		SELECT customer.id as id,name as name,address as address,id_card as idCard,phone as phone,wx_num as customerWXNum,
+		origin as origin,t_sys_dict.label AS originValue from customer
+		LEFT JOIN t_sys_dict ON customer.origin=t_sys_dict.id
+		WHERE customer.id=#{id}
+	</select>
+	<update id="modifyCustomer" parameterType="com.lybyb.journey.customer.model.Customer">
+		UPDATE `journey`.`customer`
+		SET `name` = #{name},
+		`phone` = #{phone},
+		`id_card` = #{idCard},
+		`wx_num` = #{customerWXNum},
+		`address` = #{address},
+		`origin` = #{origin},
+		`modify_time` = now()
+		WHERE
+			`id` = #{id};
+	</update>
+	<delete id="deleteCustomer" parameterType="java.lang.Long">
+		DELETE FROM customer WHERE id =#{id}
+	</delete>
+</mapper>

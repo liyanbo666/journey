@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lybyb.journey.order.dao.DealOrderMapper">
+
+    <select id="getDealOrderList" parameterType="com.lybyb.journey.order.model.DealOrder"
+            resultType="com.lybyb.journey.order.model.DealOrder">
+        SELECT deal_order.id as id,apply_order_id as applyOrderId,work_date as workDate, deal_order_process as
+        dealOrderProcess,
+        c.name as workCourse,
+        deal_order.course_id as courseId,
+        pay_type as payType,amount as amount,agreement_status as agreementStatus,
+        deal_belonger as dealBelonger,
+        deal_school as dealSchool,
+        deal_order_cycle as dealOrderCycle,
+        deal_order.create_time as createTime,
+        apply_order.consult_time AS consultTime,
+        apply_order.next_consult_time as nextConsultTime,
+        apply_order.remark as remark,
+        apply_order.modify_time as modifyTime,
+        customer.name AS name,customer.phone as phone,course.name AS course,customer.id_card as idCard,
+        customer.wx_num AS customerWX,
+        t_sys_dict.label as existWX
+        from deal_order
+        LEFT JOIN apply_order ON deal_order.apply_order_id=apply_order.id
+        LEFT JOIN course ON apply_order.course_id=course.id
+        LEFT JOIN t_sys_dict ON t_sys_dict.id=apply_order.exist_wx_id
+        LEFT JOIN customer ON apply_order.customer_id=customer.id
+        LEFT JOIN course c on deal_order.course_id=c.id
+        WHERE 1=1
+        <if test="createBeginTime != null">
+            <![CDATA[  AND deal_order.create_time > #{createBeginTime}]]>
+        </if>
+        <if test="createEndTime  != null">
+            <![CDATA[ AND deal_order.create_time < #{createEndTime}]]>
+        </if>
+        <if test="workBeginTime != null">
+            <![CDATA[  AND deal_order.work_date > #{workBeginTime}]]>
+        </if>
+        <if test="workEndTime  != null">
+            <![CDATA[ AND deal_order.work_date < #{workEndTime}]]>
+        </if>
+        <if test="idCard != '' and idCard !=null">
+            and customer.id_card=#{idCard}
+        </if>
+        <if test="courseId != '' and courseId !=null">
+            and deal_order.course_id=#{courseId}
+        </if>
+        ORDER BY createTime ASC
+    </select>
+
+    <select id="getDealOrderListById" parameterType="java.lang.Long"
+            resultType="com.lybyb.journey.order.model.DealOrder">
+       SELECT deal_order.id as id,apply_order_id as applyOrderId,work_date as workDate,
+        deal_order_process as dealOrderProcess,
+        create_time as createTime,
+        deal_order.course_id as courseId,
+        pay_type as payType,amount as amount,agreement_status as agreementStatus,
+        deal_belonger as dealBelonger,
+        deal_school as dealSchool,
+        deal_order_cycle as dealOrderCycle,
+        other as other
+        from deal_order where id=#{id}
+    </select>
+
+    <insert id="saveOrder" parameterType="com.lybyb.journey.order.model.DealOrder">
+        INSERT INTO `journey`.`apply_order` (
+        `exist_wx_id`,
+        `consult_time`,
+        `follow_up_plan`,
+        `follow_up_process`,
+        `remark`,
+        `next_consult_time`,
+        `course_id`,
+        customer_id,
+        `create_time`,
+        `modify_time`,
+        `create_user`,
+        `modify_user`
+        )
+        VALUES
+        (
+        #{existWXId},
+        #{consultTime},
+        #{followUpPlan},
+        #{followUpProcess},
+        #{remark},
+        #{nextConsultTime},
+        #{courseId},
+        #{customerId},
+        now(),
+        now(),
+        NULL,
+        NULL
+        );
+    </insert>
+    <update id="updateDealOrder" parameterType="com.lybyb.journey.order.model.DealOrder">
+      UPDATE journey.deal_order
+SET
+work_date = #{workDate},
+deal_order_process = #{dealOrderProcess},
+ pay_type = #{payType},
+  amount = #{amount},
+   agreement_status = #{agreementStatus},
+    deal_order_cycle = #{dealOrderCycle},
+     create_time = #{createTime},
+     deal_school = #{dealSchool},
+     deal_belonger = #{dealBelonger},
+     other = #{other},
+     deal_belonger=#{dealBelonger},
+     deal_school=#{dealSchool},
+     course_id = #{courseId} WHERE id = #{id};
+    </update>
+
+</mapper>
