@@ -49,5 +49,5 @@ public class DealOrder extends Order {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     private Date workEndTime;
-    private String worCourse;
+    private String workCourse;
 }
