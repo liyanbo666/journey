@@ -26,7 +26,7 @@ public class uploadServiceImpl implements UploadService {
         int num = pictureRepository.imgIsExist(picture.getName());
         if (num > 0) {
             returnMap.put("code", "isExist");
-            returnMap.put("msg", "文件名"+picture.getName()+"已存在，请修改文件名后再次上传");
+            returnMap.put("msg", "文件名" + picture.getName() + "已存在，请修改文件名后再次上传");
         } else {
             int count = pictureRepository.savePicture(picture);
             if (count > 0) {
@@ -51,6 +51,7 @@ public class uploadServiceImpl implements UploadService {
         returnMap.put("data", pictures);
         return returnMap;
     }
+
     @Override
     public Map<String, Object> updateImg(Picture picture) {
         Map<String, Object> returnMap = new HashMap<>();
@@ -58,25 +59,25 @@ public class uploadServiceImpl implements UploadService {
             pictureRepository.updateImg(picture);
             returnMap.put("code", "200");
             returnMap.put("msg", "图片修改成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             returnMap.put("code", "0000");
             returnMap.put("msg", "图片修改失败");
         }
         return returnMap;
     }
+
     @Override
     public Map<String, Object> removeImg(Picture picture) {
         File removeFile = new File("D://img/" + picture.getName());
         Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("code", "0000");
         returnMap.put("msg", "图片删除失败");
-        if (removeFile.delete()) {
-            int count = pictureRepository.removeImg(picture.getId());
-            if (count == 1) {
-                returnMap.put("code", "200");
-                returnMap.put("msg", "图片删除成功");
-            }
+        int count = pictureRepository.removeImg(picture.getId());
+        if (count == 1) {
+            returnMap.put("code", "200");
+            returnMap.put("msg", "图片删除成功");
         }
+        removeFile.delete();
         return returnMap;
     }
 }
