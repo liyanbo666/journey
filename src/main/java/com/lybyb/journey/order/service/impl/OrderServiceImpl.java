@@ -6,9 +6,8 @@ import com.lybyb.journey.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @Auther: bunuo
@@ -25,6 +24,8 @@ public class OrderServiceImpl implements OrderService {
         try{
 
             List<Order> orderList=orderMapper.getOrderList(order);
+
+            Collections.sort(orderList, Comparator.comparing(Order::getTimeFromNow));
             returnMap.put("data",orderList);
             returnMap.put("code", "200");
             returnMap.put("msg", "订单列表获取成功");
@@ -102,4 +103,14 @@ public class OrderServiceImpl implements OrderService {
         }
         return returnMap;
     }
+    private boolean isToday(Date date){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String param = sdf.format(date);//参数时间
+        String now = sdf.format(new Date());//当前时间
+        if(param.equals(now)){
+            return true;
+        }
+        return false;
+    }
+
 }

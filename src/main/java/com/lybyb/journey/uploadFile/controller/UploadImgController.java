@@ -37,7 +37,7 @@ public class UploadImgController {
         PrintWriter writer = null;
         try {
             writer = response.getWriter();
-            String filePath = "D://img/";
+            String filePath = "/img/";
             FileUtil.uploadFile(file.getBytes(), filePath, file.getOriginalFilename());
             String savaPath = request.getRequestURL().toString();
             User user = (User) request.getSession().getAttribute("user");

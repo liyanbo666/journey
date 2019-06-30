@@ -52,10 +52,10 @@
             AND course_id=#{courseId}
         </if>
         <if test="nextConsultBeginTime!=null">
-           AND next_consult_time=#{nextConsultBeginTime}
+            <![CDATA[   AND next_consult_time >= #{nextConsultBeginTime}]]>
         </if>
         <if test="nextConsultEndTime!=null">
-            AND next_consult_time=#{nextConsultEndTime}
+            <![CDATA[   AND next_consult_time <= #{nextConsultEndTime}]]>
         </if>
         <if test="consultTime != null">
             AND consult_time=#{consultTime}
