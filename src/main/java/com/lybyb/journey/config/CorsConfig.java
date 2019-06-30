@@ -15,9 +15,14 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(false);
         System.out.println("===============进corsFilter啦==========");
+        config.addAllowedOrigin("http://localhost:8888");
+        config.addAllowedOrigin("http://localhost:80");
         config.addAllowedOrigin("http://localhost:8080");
+        config.addAllowedOrigin("http://localhost");
         config.addAllowedOrigin("http://47.94.248.36:8080");
-        config.addAllowedOrigin("http://47.94.248.36:8080");
+        config.addAllowedOrigin("http://47.94.248.36:80");
+        config.addAllowedOrigin("http://47.94.248.36");
+        config.addAllowedOrigin("http://47.94.248.36:8888");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
