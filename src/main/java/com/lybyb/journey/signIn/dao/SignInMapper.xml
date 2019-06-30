@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lybyb.journey.signIn.dao.SignInMapper">
+<select id="getSignInList" parameterType="com.lybyb.journey.signIn.model.SignIn" resultType="com.lybyb.journey.signIn.model.SignIn">
+	SELECT si.id as id,si.customer_id as customerId,c.name as customerName,course.name as courseName,si.course_id as courseId,
+	si.createTime as createTime,si.update_time as updateTime,si.createUser as createUser,si.update_user as updateUser
+	from sign_in si left join customer c on si.customer_id = c.id
+	left join course course on si.course_id=course.id
+</select>
+	<insert id="addSignIn" parameterType="com.lybyb.journey.signIn.model.SignIn">
+
+	INSERT INTO `sign_in` (`customer_id`, `course_id`, `create_time`, `update_time`, `create_user`, `update_user` )
+		VALUES
+	( #{customerId}, #{courseId}, now(), now(), #{createUser}, #{updateUser} )
+	</insert>
+</mapper>
